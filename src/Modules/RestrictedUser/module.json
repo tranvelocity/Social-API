@@ -1,0 +1,11 @@
+{
+    "name": "RestrictedUser",
+    "alias": "restricteduser",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\RestrictedUser\\app\\Providers\\RestrictedUserServiceProvider"
+    ],
+    "files": []
+}

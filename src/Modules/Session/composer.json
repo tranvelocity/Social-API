@@ -1,0 +1,29 @@
+{
+    "name": "nwidart/session",
+    "description": "",
+    "authors": [
+        {
+            "name": "HocTran",
+            "email": "tranvanhoc.tb@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Session\\": "",
+            "Modules\\Session\\App\\": "App/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Session\\Tests\\": "Tests/"
+        }
+    }
+}

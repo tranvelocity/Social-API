@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/poster",
+    "description": "",
+    "authors": [
+        {
+            "name": "HocTran",
+            "email": "tranvanhoc.tb@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Poster\\": "",
+            "Modules\\Poster\\App\\": "app/",
+            "Modules\\Poster\\Database\\Factories\\": "database/factories/",
+            "Modules\\Poster\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Poster\\Tests\\": "tests/"
+        }
+    }
+}

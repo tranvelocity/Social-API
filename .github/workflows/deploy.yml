@@ -1,0 +1,249 @@
+name: Deploy
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+-release*"
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    if: contains(github.ref, 'release+stg')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+
+      - name: Install AWS Cli
+        uses: unfor19/install-aws-cli-action@v1
+        with:
+          version: 1
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1.13"
+          tools: composer:v2
+          extensions: mbstring, gd, sqlite
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          cd src && echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - uses: chrislennon/action-aws-cli@v1.1
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: "true"
+
+      - name: Set AWS region
+        run: aws configure set region ap-northeast-1
+
+      - name: Set github token for composer
+        run: |
+          composer config --global --auth github-oauth.github.com ${{ secrets.FC_GH_PAT }}
+      - name: Copy .env
+        run: |
+          cd src
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Install Composer dependencies
+        run: |
+          cd src && composer install --ignore-platform-reqs
+
+      - name: Release to staging env
+        uses: docker://tranvelocityinc/stretcli:0.3.0
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.STRETCHER_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.STRETCHER_AWS_SECRET_ACCESS_KEY }}
+        with:
+          args: stretcli run --config ./.stretcli.staging.yml
+        if: contains(github.ref, 'release+stg')
+
+      - name: Build API Docs (Generate HTML documentation)
+        working-directory: ./docs/api
+        run: |
+          npx redoc-cli bundle api.yaml && mv redoc-static.html api.html
+
+      - name: Upload HTML to S3 Bucket [Staging]
+        run: |
+          aws s3 cp ./api.html s3://tranvelocity.api.doc/tranvelocity/social/v1/staging/index.html
+        working-directory: ./docs/api
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.APIDOC_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.APIDOC_AWS_SECRET_ACCESS_KEY }}
+        if: contains(github.ref, 'release+stg')
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    environment: production
+    if: contains(github.ref, 'release+prod')
+    env:
+      AWS_REGION: ap-northeast-1
+      ECR_REPOSITORY_BASE: 123456789.dkr.ecr.ap-northeast-1.amazonaws.com
+      ECR_REPOSITORY_PHP: social-api/php
+      ECR_REPOSITORY_NGINX: social-api/nginx
+      ECR_REPOSITORY_FLUENT: social-api/fluent-bit
+      ECS_SERVICE: tranvelocity-prod-social
+      ECS_CLUSTER: tranvelocity-prod
+      ECS_TASK_DEFINITION: .aws/task-definition.json
+      ECS_TASK_DEFINITION_BATCH: .aws/task-definition-batch.json
+      CONTAINER_NAME_PHP: php
+      CONTAINER_NAME_NGINX: nginx
+      CONTAINER_NAME_FLUENT: log_router
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECS_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECS_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and push (php)
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile-php
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_PHP }}:latest
+            ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_PHP }}:${{ github.sha }}
+
+      - name: Build and push (app)
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile-app
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_NGINX }}:latest
+            ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_NGINX }}:${{ github.sha }}
+
+      - name: Build and push (fluent bit)
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile-fluent-bit
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_FLUENT }}:latest
+            ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_FLUENT }}:${{ github.sha }}
+
+      - name: Fill in the new image ID in the Amazon ECS task definition (APP)
+        id: task-def-app
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.CONTAINER_NAME_NGINX }}
+          image: ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_NGINX }}:${{ github.sha }}
+
+      - name: Fill in the new image ID in the Amazon ECS task definition (PHP)
+        id: task-def-php
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-app.outputs.task-definition }}
+          container-name: ${{ env.CONTAINER_NAME_PHP }}
+          image: ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_PHP }}:${{ github.sha }}
+
+      - name: Fill in the new image ID in the Amazon ECS task definition (Fluent Bit)
+        id: task-def-fluent
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-php.outputs.task-definition }}
+          container-name: ${{ env.CONTAINER_NAME_FLUENT }}
+          image: ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_FLUENT }}:${{ github.sha }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-fluent.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+
+      - name: Fill in the new image ID in the Amazon ECS task definition (PHP-BATCH)
+        id: task-def-php-batch
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION_BATCH }}
+          container-name: ${{ env.CONTAINER_NAME_PHP }}
+          image: ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_PHP }}:${{ github.sha }}
+
+      - name: Fill in the new image ID in the Amazon ECS task definition (Fluent Bit-BATCH)
+        id: task-def-fluent-batch
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-php-batch.outputs.task-definition }}
+          container-name: ${{ env.CONTAINER_NAME_FLUENT }}
+          image: ${{ env.ECR_REPOSITORY_BASE }}/${{ env.ECR_REPOSITORY_FLUENT }}:${{ github.sha }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-fluent-batch.outputs.task-definition }}
+
+      - name: Deploy Batch (dependences)
+        uses: Songmu/ecschedule@main
+
+      - name: Deploy Batch (ecshedule)
+        run: |
+          ecschedule -conf .ecschedule/prod.yaml apply -all
+
+      - name: Set Release Version from Tag
+        run: echo "RELEASE_VERSION=$(echo $GITHUB_REF | sed -E 's/refs\/tags\/([0-9]+\.[0-9]+\.[0-9]+)-release.*/\1/')" >> $GITHUB_ENV
+
+      - name: Set Release Description from Tag's Commit Message
+        run: |
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          COMMIT_MESSAGE=$(git tag -l --format='%(contents:subject)' $TAG_NAME)
+          echo "RELEASE_DESCRIPTION=${COMMIT_MESSAGE}" >> $GITHUB_ENV
+
+      - name: Send deployment marker to New Relic
+        uses: newrelic/deployment-marker-action@v2.5.0
+        with:
+          apiKey: ${{ secrets.TRANVELOCITY_NEWRELIC_API_KEY }}
+          guid: ${{ secrets.NEW_RELIC_DEPLOYMENT_ENTITY_GUID }}
+          version: "${{ env.RELEASE_VERSION }}"
+          changelog: "https://github.com/${{ github.repository }}"
+          description: "${{ env.RELEASE_DESCRIPTION }}"
+          user: "${{ github.actor }}"
+          commit: "${{ github.sha }}"
+
+      - name: Build API Docs (Generate HTML documentation)
+        working-directory: ./docs/api
+        run: |
+          npx redoc-cli bundle api.yaml && mv redoc-static.html api.html
+
+      - name: Upload HTML to S3 Bucket [Production]
+        run: |
+          aws s3 cp ./api.html s3://tranvelocity.api.doc/tranvelocity/social/v1/index.html
+        working-directory: ./docs/api
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.APIDOC_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.APIDOC_AWS_SECRET_ACCESS_KEY }}
+        if: contains(github.ref, 'release+prod')
+

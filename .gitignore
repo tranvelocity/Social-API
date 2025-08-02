@@ -1,0 +1,20 @@
+.env
+node_modules
+data/
+
+/src/storage/files
+/src/storage/temp
+/src/.github
+src/Modules/.php-cs-fixer.cache
+src/Modules/*/*.php-cs-fixer.cache
+.php-cs-fixer.cache
+
+# Other Laravel stuff
+/src/vendor
+/src/Modules/*/vendor
+
+# Editor related stuff
+.idea
+.DS_Store
+socialapi
+src/storage

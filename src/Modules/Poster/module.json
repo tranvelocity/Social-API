@@ -1,0 +1,11 @@
+{
+    "name": "Poster",
+    "alias": "poster",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Poster\\app\\Providers\\PosterServiceProvider"
+    ],
+    "files": []
+}

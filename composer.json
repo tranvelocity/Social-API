@@ -1,0 +1,20 @@
+{
+    "name": "Tranvelocity/social-api",
+    "description": "Social API project developed by Tranvelocity team",
+    "keywords": ["Tranvelocity", "Social API", "API"],
+    "type": "project",
+    "authors": [
+        {
+            "name": "HocTran",
+            "email": "tranvanhoc.tb@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Modules\\": "Modules/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    }
+}

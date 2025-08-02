@@ -1,0 +1,27 @@
+{
+    "name": "nwidart/user",
+    "description": "",
+    "authors": [
+        {
+            "name": "HocTran",
+            "email": "tranvanhoc.tb@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\User\\": "",
+            "Modules\\User\\App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\User\\Tests\\": "Tests/"
+        }
+    }
+}

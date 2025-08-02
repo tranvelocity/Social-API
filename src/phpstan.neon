@@ -1,0 +1,21 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app/
+        - Modules/
+    excludePaths:
+        analyse:
+            - Modules/Cache/vendor
+            - Modules/Comment/vendor
+            - Modules/Media/vendor
+            - Modules/Post/vendor
+            - Modules/Poster/vendor
+            - Modules/Like/vendor
+
+    # Level 9 is the highest level
+    level: 6
+
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false

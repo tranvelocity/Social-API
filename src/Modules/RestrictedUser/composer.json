@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/restricteduser",
+    "description": "",
+    "authors": [
+        {
+            "name": "HocTran",
+            "email": "tranvanhoc.tb@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\RestrictedUser\\": "",
+            "Modules\\RestrictedUser\\app\\": "app/",
+            "Modules\\RestrictedUser\\Database\\Factories\\": "database/factories/",
+            "Modules\\RestrictedUser\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\RestrictedUser\\Tests\\": "tests/"
+        }
+    }
+}

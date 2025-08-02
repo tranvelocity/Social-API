@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Shortcut to execute commands.
+docker compose exec php bash -c "cd /var/www && $(echo $@)"

@@ -1,0 +1,20 @@
+{
+    "Admin": true,
+    "User": true,
+    "Core": true,
+    "Media": true,
+    "Notification": true,
+    "AuditLog": true,
+    "AWS": true,
+    "Post": true,
+    "Comment": true,
+    "Like": true,
+    "Poster": true,
+    "Role": true,
+    "Test": true,
+    "Cache": true,
+    "Session": true,
+    "HealthCheck": true,
+    "ThrottleConfig": true,
+    "RestrictedUser": true
+}

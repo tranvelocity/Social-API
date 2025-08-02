@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/ThrottleConfig",
+    "description": "",
+    "authors": [
+        {
+            "name": "HocTran",
+            "email": "tranvanhoc.tb@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ThrottleConfig\\": "",
+            "Modules\\ThrottleConfig\\app\\": "app/",
+            "Modules\\ThrottleConfig\\Database\\Factories\\": "database/factories/",
+            "Modules\\ThrottleConfig\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\ThrottleConfig\\Tests\\": "tests/"
+        }
+    }
+}

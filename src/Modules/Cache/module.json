@@ -1,0 +1,11 @@
+{
+    "name": "Cache",
+    "alias": "cache",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Cache\\app\\Providers\\CacheServiceProvider"
+    ],
+    "files": []
+}

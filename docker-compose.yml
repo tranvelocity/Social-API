@@ -1,0 +1,91 @@
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  datastore:
+    image: busybox
+    container_name: social_datastore
+    restart: always
+    stdin_open: true
+    tty: true
+    volumes:
+      - $PWD/src:/var/www/api
+    command: /bin/sh
+
+  app:
+    container_name: social_nginx
+    image: nginx:1.19.8-alpine
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./src:/var/www
+      - ./nginx/conf:/etc/nginx/conf.d
+    environment:
+      PHP_HOST: php
+      SERVER_NAME: dev-social.api.com
+      SSL: "true"
+    networks:
+      - app-network
+
+  php:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: php:8.1-fpm-buster
+    container_name: social_app
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    networks:
+      - app-network
+    environment:
+      SERVER_NAME: local.social.vn
+      SSL: "true"
+
+  db:
+    image: mysql:8.4
+    container_name: social_db
+    command: mysqld --mysql-native-password=ON
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: socialapi
+      MYSQL_PASSWORD: socialapi
+      MYSQL_DATABASE: socialapi
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - $PWD/data:/var/lib/mysql
+    networks:
+      - app-network
+
+  cache:
+    image: redis:6.2.1-buster
+    container_name: social_cache
+    ports:
+      - 6379:6379
+    networks:
+      - app-network
+
+  swagger-editor:
+    image: swaggerapi/swagger-editor
+    container_name: social_swagger_editor
+    ports:
+      - "8001:8080"
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: social_swagger_ui
+    ports:
+      - "8002:8080"
+    volumes:
+      - ./docs/api/api.yaml:/api/api.yaml
+    environment:
+      SWAGGER_JSON: /api/api.yaml

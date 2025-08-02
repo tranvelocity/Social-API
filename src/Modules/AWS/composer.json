@@ -1,0 +1,31 @@
+{
+  "name": "nwidart/aws",
+  "description": "",
+  "authors": [
+    {
+      "name": "HocTran",
+      "email": "tranvanhoc.tb@gmail.com"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [],
+      "aliases": {
+
+      }
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Modules\\AWS\\": "",
+      "Modules\\AWS\\App\\": "app/",
+      "Modules\\AWS\\Database\\Factories\\": "database/factories/",
+      "Modules\\AWS\\Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Modules\\AWS\\Tests\\": "Tests/"
+    }
+  }
+}

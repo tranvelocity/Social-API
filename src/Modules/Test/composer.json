@@ -1,0 +1,23 @@
+{
+    "name": "nwidart/test",
+    "description": "",
+    "authors": [
+        {
+            "name": "HocTran",
+            "email": "tranvanhoc.tb@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Test\\Tests\\": "Tests/"
+        }
+    }
+}

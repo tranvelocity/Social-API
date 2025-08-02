@@ -1,0 +1,51 @@
+name: Build
+on:
+  push:
+    branches:
+      - "**"
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.1.0
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1.13"
+          tools: composer:v2, php-cs-fixer
+          extensions: mbstring, gd, sqlite
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: cd src && echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Copy .env
+        run: |
+          cd src
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Set github token for composer
+        run: composer config --global --auth github-oauth.github.com ${{ secrets.FC_GH_PAT }}
+
+      - name: Install Composer dependencies
+        run: cd src && composer install
+
+      - name: Show Laravel log on test failure
+        if: failure() && steps.phpunit.conclusion == 'failure'
+        run: |
+          echo '--- Laravel Log Output ---'
+          cat src/storage/logs/laravel.log || echo 'No laravel.log file found.'
+          echo '--- End Laravel Log ---'
