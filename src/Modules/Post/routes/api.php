@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Modules\Post\app\Http\Controllers\PostController;
-use Modules\Post\app\Http\Controllers\PostSocialController;
+use Modules\Post\app\Http\Controllers\PostTimelineController;
 
 // For user's Social
 // for only posters
@@ -12,5 +12,5 @@ Route::group(['prefix' => Config::get('api.version'), 'middleware' => ['auth.ses
 });
 
 Route::group(['prefix' => Config::get('api.version'), 'middleware' => ['post_social']], function () {
-    Route::resource(Config::get('api.endpoints.posts_social'), PostSocialController::class, ['only' => ['index']]);
+    Route::resource(Config::get('api.endpoints.posts_social'), PostTimelineController::class, ['only' => ['index']]);
 });

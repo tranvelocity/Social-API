@@ -1,0 +1,10 @@
+{
+  "name": "Member",
+  "alias": "member",
+  "description": "Member management module",
+  "version": "1.0.0",
+  "priority": 0,
+  "providers": [
+    "Modules\\Member\\app\\Providers\\MemberServiceProvider"
+  ]
+}

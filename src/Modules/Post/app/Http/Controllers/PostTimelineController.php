@@ -9,7 +9,7 @@ use Modules\Post\app\Http\Requests\SearchPostSocialRequest;
 use Modules\Post\app\Resources\PostSocialResource;
 use Modules\Post\app\Services\PostSocialService;
 
-class PostSocialController extends Controller
+class PostTimelineController extends Controller
 {
     private PostSocialService $postSocialService;
 

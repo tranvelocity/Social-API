@@ -1,0 +1,11 @@
+{
+    "name": "modules/member",
+    "description": "Member module for Social API",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Member\\": "app/"
+        }
+    },
+    "require": {}
+}

@@ -7,9 +7,9 @@ execute_php_command() {
 
 # Function to create directories and files
 create_files() {
-  execute_php_command "cd /var/www/api/Modules/${MODULE_NAME}/$1 && mkdir -p $2"
+  execute_php_command "cd /var/www/Modules/${MODULE_NAME}/$1 && mkdir -p $2"
   for file in "${@:3}"; do
-    execute_php_command "cd /var/www/api/Modules/${MODULE_NAME}/$1/$2 && touch $file"
+    execute_php_command "cd /var/www/Modules/${MODULE_NAME}/$1/$2 && touch $file"
   done
 }
 
@@ -47,11 +47,11 @@ sh ./scripts/app php artisan module:make "${MODULE_NAME}"
 # shellcheck disable=SC2162
 read -p "Do you want to create Lang files (y/n) ? " langFileCreationAnswer
 if [[ $langFileCreationAnswer =~ ^[Yy]$ ]]; then
-  execute_php_command "cd /var/www/api/Modules/${MODULE_NAME} && mkdir -p lang/en lang/ja"
-  execute_php_command "cd /var/www/api/Modules/${MODULE_NAME}/lang/en && touch messages.php errors.php"
-  execute_php_command "cd /var/www/api/Modules/${MODULE_NAME}/lang/ja && touch messages.php errors.php"
+  execute_php_command "cd /var/www/Modules/${MODULE_NAME} && mkdir -p lang/en lang/ja"
+  execute_php_command "cd /var/www/Modules/${MODULE_NAME}/lang/en && touch messages.php errors.php"
+  execute_php_command "cd /var/www/Modules/${MODULE_NAME}/lang/ja && touch messages.php errors.php"
 else
-  execute_php_command "cd /var/www/api/Modules/${MODULE_NAME} && rm -rf lang"
+  execute_php_command "cd /var/www/Modules/${MODULE_NAME} && rm -rf lang"
 fi
 
 # Create files relevant to the database
@@ -59,7 +59,7 @@ read -p "Do you want to create a migration file (y/n)? " migrationFileCreationAn
 if [[ $migrationFileCreationAnswer =~ ^[Yy]$ ]]; then
   create_migration_files
 else
-  execute_php_command "cd /var/www/api/Modules/${MODULE_NAME} && rm -rf database"
+  execute_php_command "cd /var/www/Modules/${MODULE_NAME} && rm -rf database"
 fi
 
 # Create model
@@ -81,8 +81,8 @@ create_files "app" "Services" "${MODULE_NAME}Service.php"
 sh ./scripts/app php artisan module:make-resource "${MODULE_NAME}Resource ${MODULE_NAME}"
 
 # Remove unused files
-execute_php_command "cd /var/www/api/Modules/${MODULE_NAME} && rm -rf resources package.json webpack.mix.js routes/web.php vite.config.js"
-execute_php_command "cd /var/www/api && find . -name '*.gitkeep' -type f -delete"
-execute_php_command "cd /var/www/api && find . -name '*.DS_Store' -type f -delete"
+execute_php_command "cd /var/www/Modules/${MODULE_NAME} && rm -rf resources package.json webpack.mix.js routes/web.php vite.config.js"
+execute_php_command "cd /var/www && find . -name '*.gitkeep' -type f -delete"
+execute_php_command "cd /var/www && find . -name '*.DS_Store' -type f -delete"
 
 echo "Finished creating ${MODULE_NAME} module"

@@ -1,0 +1,13 @@
+{
+    "name": "PingPong",
+    "alias": "pingpong",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PingPong\\Providers\\PingPongServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
