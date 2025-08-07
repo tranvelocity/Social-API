@@ -10,5 +10,10 @@ class AdminRepository implements AdminRepositoryInterface
     {
         return Admin::find($id);
     }
-    // Add other repository methods as needed
+
+    public function getAdminByApiKey(string $apiKey): ?Admin
+    {
+        return Admin::where('api_key', $apiKey)
+            ->first();
+    }
 }
