@@ -102,23 +102,18 @@ info:
 
     provided [Signature
 
-    Generator](https://tranvelocity.github.io/Headers-generator/). This tool
+    Generator](https://tools.hoctran.io/API-Signature-Generator/). This tool
 
     simplifies the process by automatically generating the signature based on
 
     the provided API key, and secret key.
 
-
-    For detailed information on the API's functionalities, endpoints, and usage
-
-    instructions, please refer to this
-    [documentation](https://tranvelocity.atlassian.net/l/cp/6mC1i3qs).
   contact:
     name: Tranvelocity Team
     email: tranvanhoc.tb@gmail.com
-    url: 'https://www.hoctran.net/'
+    url: 'https://www.hoctran.io/'
   license:
-    url: 'https://www.hoctran.net/'
+    url: 'https://www.hoctran.io/'
     name: HocTran.
 servers:
   - url: 'https://stage-social.api.com'
@@ -187,7 +182,7 @@ paths:
           description: The User ID of the restricted user
           schema:
             type: integer
-            example: 16614
+            example: 123456789
         - name: remarks
           in: query
           required: false
@@ -229,7 +224,7 @@ paths:
                         admin_uuid:
                           type: string
                           description: The UUID of the admin who applied the restriction
-                          example: c20a5c21-cb68-4c36-b737-aed397f1bd66
+                          example: c34w5c21-cb68-4c36-b327-aed397f1bw22
                         remarks:
                           type: string
                           description: Remarks or comments associated with the restriction
@@ -237,7 +232,7 @@ paths:
                         user_id:
                           type: integer
                           description: The User ID of the restricted user
-                          example: 16614
+                          example: 123456789
                         nickname:
                           type: string
                           description: Nickname of the restricted user (sourced from CRM)
@@ -307,7 +302,7 @@ paths:
                 user_id:
                   type: integer
                   description: The User ID of the restricted user (required)
-                  example: 16614
+                  example: 123456789
                 remarks:
                   type: string
                   description: Optional remarks or comments associated with the restriction
@@ -338,7 +333,7 @@ paths:
                       admin_uuid:
                         type: string
                         description: The UUID of the admin who created the restriction
-                        example: c20a5c21-cb68-4c36-b737-aed397f1bd66
+                        example: c34w5c21-cb68-4c36-b327-aed397f1bw22
                       remarks:
                         type: string
                         description: Remarks or comments associated with the restriction
@@ -346,7 +341,7 @@ paths:
                       user_id:
                         type: integer
                         description: The User ID of the restricted user
-                        example: 16614
+                        example: 123456789
                       nickname:
                         type: string
                         description: Nickname of the restricted user (sourced from CRM)
@@ -501,7 +496,7 @@ paths:
                       admin_uuid:
                         type: string
                         description: The UUID of the admin who created the restriction
-                        example: c20a5c21-cb68-4c36-b737-aed397f1bd66
+                        example: c34w5c21-cb68-4c36-b327-aed397f1bw22
                       remarks:
                         type: string
                         description: Remarks or comments associated with the restriction
@@ -509,7 +504,7 @@ paths:
                       user_id:
                         type: integer
                         description: The User ID of the restricted user
-                        example: 16614
+                        example: 123456789
                       nickname:
                         type: string
                         description: Nickname of the restricted user (sourced from CRM)
@@ -625,7 +620,7 @@ paths:
                       admin_uuid:
                         type: string
                         description: The UUID of the admin who updated the restriction
-                        example: c20a5c21-cb68-4c36-b737-aed397f1bd66
+                        example: c34w5c21-cb68-4c36-b327-aed397f1bw22
                       remarks:
                         type: string
                         description: Remarks or comments associated with the restriction
@@ -633,7 +628,7 @@ paths:
                       user_id:
                         type: integer
                         description: The User ID of the restricted user
-                        example: 16614
+                        example: 123456789
                       nickname:
                         type: string
                         description: Nickname of the restricted user (sourced from CRM)
@@ -788,7 +783,7 @@ paths:
                         description: >-
                           The UUID of the admin associated with the throttle
                           configuration.
-                        example: c20a5c21-cb68-4c36-b737-aed397f1bd66
+                        example: c34w5c21-cb68-4c36-b327-aed397f1bw22
                       time_frame_minutes:
                         type: integer
                         description: Time frame in hours for the throttle configuration.
@@ -903,7 +898,7 @@ paths:
                         description: >-
                           The UUID of the admin who created the throttle
                           configuration.
-                        example: c20a5c21-cb68-4c36-b737-aed397f1bd66
+                        example: c34w5c21-cb68-4c36-b327-aed397f1bw22
                       time_frame_minutes:
                         type: integer
                         description: The time frame for the throttle in hours.
@@ -1110,7 +1105,7 @@ paths:
           description: The user ID
           schema:
             type: integer
-            example: 16614
+            example: 123456789
       responses:
         '200':
           description: A list of posters retrieved successfully
@@ -1209,8 +1204,8 @@ paths:
                 example:
                   data:
                     - id: 01hpr9vxjhsygaecwkp30paayw
-                      admin_uuid: 9295de24-404b-408f-8ec5-1a5f3224a244
-                      user_id: 16614
+                      admin_uuid: 1295de24-404b-402f-8ec5-1a5f3231a244
+                      user_id: 123456789
                       nickname: HocTran（本人）
                       avatar: >-
                         https://123456789.cloudfront.net/crm/staging/avatar.png
@@ -1431,7 +1426,7 @@ paths:
                 user_id:
                   type: integer
                   description: The updated user ID associated with the poster.
-                  example: 16614
+                  example: 123456789
                 description:
                   type: string
                   description: The updated description of the poster.
@@ -1628,7 +1623,7 @@ paths:
                   value:
                     data:
                       role: 2
-                      user_id: 16614
+                      user_id: 123456789
                       email: tranvanhoc.tb@gmail.com
                       last_name: チャン
                       first_name: ガク
@@ -1822,7 +1817,7 @@ paths:
                   value:
                     data:
                       - id: 01HQSMHSP2N4H9M26FACZHESJE
-                        admin_uuid: 9295de24-404b-408f-8ec5-1a5f3224a244
+                        admin_uuid: 1295de24-404b-402f-8ec5-1a5f3231a244
                         type: premium
                         content: Test content
                         is_published: true
@@ -1859,14 +1854,14 @@ paths:
                         total_likes: 0
                         is_liked: false
                         poster:
-                          id: 01hqszfkc6fpfya5m7n42zpd34
-                          admin_uuid: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
-                          user_id: 16614
+                          id: 3123qszfkc6fpfya5m7n42zfs22
+                          admin_uuid: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
+                          user_id: 123456789
                           nickname: hoctran
                           avatar: >-
                             https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
                       - id: 01HQSMHSNZH56ATTJRT99W23WQ
-                        admin_uuid: 9295de24-404b-408f-8ec5-1a5f3224a244
+                        admin_uuid: 1295de24-404b-402f-8ec5-1a5f3231a244
                         type: free
                         content: This is the post content
                         is_published: false
@@ -1903,9 +1898,9 @@ paths:
                         total_likes: 0
                         is_liked: true
                         poster:
-                          id: 01hqszfkc6fpfya5m7n42zpd34
-                          admin_uuid: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
-                          user_id: 16614
+                          id: 3123qszfkc6fpfya5m7n42zfs22
+                          admin_uuid: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
+                          user_id: 123456789
                           nickname: hoctran
                           avatar: >-
                             https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
@@ -1920,7 +1915,7 @@ paths:
                   value:
                     data:
                       - id: 01HQSMHSNTR0ZHGSENH080TE32
-                        admin_uuid: 9295de24-404b-408f-8ec5-1a5f3224a244
+                        admin_uuid: 1295de24-404b-402f-8ec5-1a5f3231a244
                         type: premium
                         content: Test content
                         is_published: true
@@ -1958,14 +1953,14 @@ paths:
                         total_likes: 0
                         is_liked: false
                         poster:
-                          id: 01hqszfkc6fpfya5m7n42zpd34
-                          admin_uuid: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
-                          user_id: 16614
+                          id: 3123qszfkc6fpfya5m7n42zfs22
+                          admin_uuid: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
+                          user_id: 123456789
                           nickname: hoctran
                           avatar: >-
                             https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
                       - id: 01HQSMHSNK8GFY0148NB7AF1X3
-                        admin_uuid: 9295de24-404b-408f-8ec5-1a5f3224a244
+                        admin_uuid: 1295de24-404b-402f-8ec5-1a5f3231a244
                         type: free
                         content: The content of free post
                         is_published: true
@@ -2003,9 +1998,9 @@ paths:
                         total_likes: 3
                         is_liked: true
                         poster:
-                          id: 01hqszfkc6fpfya5m7n42zpd34
-                          admin_uuid: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
-                          user_id: 16614
+                          id: 3123qszfkc6fpfya5m7n42zfs22
+                          admin_uuid: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
+                          user_id: 123456789
                           nickname: hoctran
                           avatar: >-
                             https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
@@ -2020,7 +2015,7 @@ paths:
                   value:
                     data:
                       - id: 01HQSMHRX1B0WA71AXD56P0XVN
-                        admin_uuid: 9295de24-404b-408f-8ec5-1a5f3224a244
+                        admin_uuid: 1295de24-404b-402f-8ec5-1a5f3231a244
                         type: premium
                         content: ''
                         is_published: true
@@ -2058,14 +2053,14 @@ paths:
                         total_likes: 0
                         is_liked: false
                         poster:
-                          id: 01hqszfkc6fpfya5m7n42zpd34
-                          admin_uuid: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
-                          user_id: 16614
+                          id: 3123qszfkc6fpfya5m7n42zfs22
+                          admin_uuid: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
+                          user_id: 123456789
                           nickname: hoctran
                           avatar: >-
                             https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
                       - id: 01HQSMHRX5K5X0Y61AY0F6PTZ6
-                        admin_uuid: 9295de24-404b-408f-8ec5-1a5f3224a244
+                        admin_uuid: 1295de24-404b-402f-8ec5-1a5f3231a244
                         type: free
                         content: The content of free post
                         is_published: true
@@ -2103,9 +2098,9 @@ paths:
                         total_likes: 3
                         is_liked: false
                         poster:
-                          id: 01hqszfkc6fpfya5m7n42zpd34
-                          admin_uuid: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
-                          user_id: 16614
+                          id: 3123qszfkc6fpfya5m7n42zfs22
+                          admin_uuid: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
+                          user_id: 123456789
                           nickname: hoctran
                           avatar: >-
                             https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
@@ -2917,7 +2912,7 @@ paths:
                   value:
                     data:
                       - id: 01hqt9drrjar3rc0ge0zpxwv93
-                        user_id: 16614
+                        user_id: 123456789
                         nickname: hoctran
                         avatar: >-
                           https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
@@ -2927,7 +2922,7 @@ paths:
                         updated_at: '2024-02-29 20:20:37'
                         created_at: '2024-02-29 20:19:05'
                       - id: 01hqt99m80ymwtk3gqhr42j2by
-                        user_id: 16614
+                        user_id: 123456789
                         nickname: hoctran
                         avatar: >-
                           https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
@@ -2964,7 +2959,7 @@ paths:
         - The prohibited (NG) words are managed by the CRM API, not by the
         Social API. For more information on managing prohibited words, please
         refer to the [CRM API
-        documentation](https://apidoc.hoctran.net/tranvelocity/crm-laravel/v1/staging/#tag/Group-NgWord/operation/post-1-batch-ng-words).
+        documentation](https://apidoc.hoctran.io/tranvelocity/crm-laravel/v1/staging/#tag/Group-NgWord/operation/post-1-batch-ng-words).
 
         - Only posters may leave comments containing NG words.
 
@@ -3124,7 +3119,7 @@ paths:
               example:
                 data:
                   id: 01hpjnnfennwxzgreg2r5wtx7f
-                  user_id: 16614
+                  user_id: 123456789
                   nickname: hoctran
                   avatar: >-
                     https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
@@ -3135,7 +3130,7 @@ paths:
                   total_comments: 2
                   post:
                     id: 01hp47vb1hcr1bcdr3c79bx6xm
-                    admin_uuid: 9295de24-404b-408f-8ec5-1a5f3224a244
+                    admin_uuid: 1295de24-404b-402f-8ec5-1a5f3231a244
                     type: premium
                     content: Test content
                     is_published: true
@@ -3187,7 +3182,7 @@ paths:
         - The prohibited (NG) words are managed by the CRM API, not by the
         Social API. For more information on managing prohibited words, please
         refer to the [CRM API
-        documentation](https://apidoc.hoctran.net/tranvelocity/crm-laravel/v1/staging/#tag/Group-NgWord/operation/post-1-batch-ng-words).
+        documentation](https://apidoc.hoctran.io/tranvelocity/crm-laravel/v1/staging/#tag/Group-NgWord/operation/post-1-batch-ng-words).
 
         - Only posters may leave comments containing NG words.
       tags:
@@ -3229,7 +3224,7 @@ paths:
               example:
                 data:
                   id: 01hqt9drrjar3rc0ge0zpxwv93
-                  user_id: 16614
+                  user_id: 123456789
                   nickname: hoctran
                   avatar: >-
                     https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
@@ -3240,7 +3235,7 @@ paths:
                   total_comments: 2
                   post:
                     id: 01hqt819gw8q83hfedkpbq5cp0
-                    admin_uuid: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
+                    admin_uuid: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
                     type: premium
                     content: Test content
                     is_published: true
@@ -3358,7 +3353,7 @@ paths:
               example:
                 data:
                   id: 01hnwcp6kd9a50w0hy2q0tg0zd
-                  user_id: 16614
+                  user_id: 123456789
                   nickname: hoctran
                   avatar: >-
                     https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
@@ -3368,7 +3363,7 @@ paths:
                   created_at: '2024-02-05 19:23:13'
                   post:
                     id: 01hnw7nqm19g9302c7wq391nvm
-                    admin_uuid: 9295de24-404b-408f-8ec5-1a5f3224a244
+                    admin_uuid: 1295de24-404b-402f-8ec5-1a5f3231a244
                     type: premium
                     content: Test content
                     is_published: true
@@ -3428,7 +3423,7 @@ paths:
               example:
                 data:
                   id: 01hnwcp6kd9a50w0hy2q0tg0zd
-                  user_id: 16614
+                  user_id: 123456789
                   nickname: hoctran
                   avatar: >-
                     https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
@@ -3438,7 +3433,7 @@ paths:
                   created_at: '2024-02-05 19:23:13'
                   post:
                     id: 01hnw7nqm19g9302c7wq391nvm
-                    admin_uuid: 9295de24-404b-408f-8ec5-1a5f3224a244
+                    admin_uuid: 1295de24-404b-402f-8ec5-1a5f3231a244
                     type: premium
                     content: Test content
                     is_published: true
@@ -3497,7 +3492,7 @@ paths:
               example:
                 data:
                   - id: 01hnw7nqm19g9302c7wq391nvb
-                    user_id: 16614
+                    user_id: 123456789
                     post_id: 01hnw7nqm19g9302c7wq391nvm
                     created_at: '2024-02-05 17:55:34'
                 success: true
@@ -3553,7 +3548,7 @@ paths:
               example:
                 data:
                   post_id: 01hnw7nqm19g9302c7wq391nvm
-                  user_id: 16614
+                  user_id: 123456789
                   action: liked
                   total_likes: 1
                 success: true
@@ -3604,7 +3599,7 @@ paths:
               example:
                 data:
                   post_id: 01hnw7nqm19g9302c7wq391nvm
-                  user_id: 16614
+                  user_id: 123456789
                   action: unliked
                   total_likes: 1
                 success: true
@@ -3822,7 +3817,7 @@ components:
             user_id:
               type: integer
               description: The ID of the user who liked the post.
-              example: 16614
+              example: 123456789
             action:
               type: string
               description: 'The action performed, which is "liked".'
@@ -3850,7 +3845,7 @@ components:
             user_id:
               type: integer
               description: The ID of the user who unliked the post.
-              example: 16614
+              example: 123456789
             action:
               type: string
               description: 'The action performed, which is "unliked".'
@@ -3873,7 +3868,7 @@ components:
         user_id:
           type: integer
           description: The User ID of the like.
-          example: 16614
+          example: 123456789
         post_id:
           type: string
           description: The ID of the post associated with the like.
@@ -4117,7 +4112,7 @@ components:
             admin_uuid:
               type: string
               description: The UUID of the admin who created the post
-              example: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
+              example: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
             type:
               type: string
               description: The type of post
@@ -4205,7 +4200,7 @@ components:
       example:
         data:
           id: 01hqt819gw8q83hfedkpbq5cp0
-          admin_uuid: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
+          admin_uuid: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
           type: premium
           content: Test content here
           is_published: true
@@ -4235,9 +4230,9 @@ components:
                 id: f9c0db9e6125cb1829b1
           comments: []
           poster:
-            id: 01hqszfkc6fpfya5m7n42zpd34
-            admin_uuid: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
-            user_id: 16614
+            id: 3123qszfkc6fpfya5m7n42zfs22
+            admin_uuid: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
+            user_id: 123456789
             nickname: hoctran
             avatar: >-
               https://stage.user.com/file/fileconsumer/doo/selector/downloader/phase/download_file/type/images/file_id/phpv2w4cF
@@ -4256,11 +4251,11 @@ components:
         admin_uuid:
           type: string
           description: The UUID of the admin who created the poster
-          example: 9295de24-404b-408f-8ec5-1a5f3224a244
+          example: 1295de24-404b-402f-8ec5-1a5f3231a244
         user_id:
           type: integer
           description: The User ID associated with the poster
-          example: 16614
+          example: 123456789
         nickname:
           type: string
           description: The nickname of the poster (retrieved from CRM API)
@@ -4295,7 +4290,7 @@ components:
         admin_uuid:
           type: string
           description: The UUID of the admin who created the post
-          example: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
+          example: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
         type:
           type: string
           description: The type of post
@@ -4433,7 +4428,7 @@ components:
         admin_uuid:
           type: string
           description: The UUID of the admin who created the post
-          example: 9295de24-404b-408f-8ec5-1a5f3224a244
+          example: 1295de24-404b-402f-8ec5-1a5f3231a244
         type:
           type: string
           description: The type of post
@@ -4475,15 +4470,15 @@ components:
             id:
               type: string
               description: The ID of the poster
-              example: 01hqszfkc6fpfya5m7n42zpd34
+              example: 3123qszfkc6fpfya5m7n42zfs22
             admin_uuid:
               type: string
               description: The Admin UUID of the poster
-              example: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
+              example: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
             user_id:
               type: integer
               description: The user ID of the poster
-              example: 16614
+              example: 123456789
             nickname:
               type: string
               description: The nickname of the poster
@@ -4708,7 +4703,7 @@ components:
                   admin_uuid:
                     type: string
                     description: UUID of the admin who created the post
-                    example: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
+                    example: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
                   type:
                     type: string
                     description: Type of the post
@@ -4788,15 +4783,15 @@ components:
                       id:
                         type: string
                         description: ID of the user who posted the content
-                        example: 01hqszfkc6fpfya5m7n42zpd34
+                        example: 3123qszfkc6fpfya5m7n42zfs22
                       admin_uuid:
                         type: string
                         description: UUID of the admin who created the user profile
-                        example: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
+                        example: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
                       user_id:
                         type: integer
                         description: ID of the user in the User system
-                        example: 16614
+                        example: 123456789
                       nickname:
                         type: string
                         description: Nickname of the user
@@ -4846,7 +4841,7 @@ components:
                   user_id:
                     type: integer
                     description: The User ID of the comment
-                    example: 16614
+                    example: 123456789
                   nickname:
                     type: string
                     description: The nickname of the commenter
@@ -4885,7 +4880,7 @@ components:
                       admin_uuid:
                         type: string
                         description: The admin UUID of the post
-                        example: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
+                        example: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
                       type:
                         type: string
                         description: The type of the post
@@ -4925,15 +4920,15 @@ components:
                           id:
                             type: string
                             description: The ID of the user who posted the comment
-                            example: 01hqszfkc6fpfya5m7n42zpd34
+                            example: 3123qszfkc6fpfya5m7n42zfs22
                           admin_uuid:
                             type: string
                             description: The admin UUID of the user
-                            example: 6c3a77e6-06cb-43f5-bb49-3b44ffc0eaaa
+                            example: 6ds37e6-032d-32ds-bb49-3b44ffc0ea122
                           user_id:
                             type: integer
                             description: The User ID of the user
-                            example: 16614
+                            example: 123456789
                           description:
                             type: string
                             description: The description of the user
@@ -4984,7 +4979,7 @@ components:
             required:
               - user_id
           example:
-            user_id: 16614
+            user_id: 123456789
             description: This is Mr. Hoc Tran
     PosterCreatePostRequestBody:
       required: true
